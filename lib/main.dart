@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,21 +33,22 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      initialIndex: 1,
-      length: 3,
+      initialIndex: 0,
+      length: 1,
       child: Builder(builder: (context) {
         DefaultTabController.of(context)?.addListener(() {
           setState(() {});
         });
 
         return Scaffold(
+          appBar: AppBar(),
           body: Stack(
             children: [
               TabBarView(
                 children: [
                   FirstTab(),
-                  SecondTab(),
-                  ThirdTab(),
+                  //SecondTab(),
+                  //ThirdTab(),
                 ],
               ),
               SafeArea(
@@ -118,7 +121,58 @@ class FirstTab extends StatelessWidget {
       },
     ];
 
-    return Center(child: Text('첫번째 페이지 커밋 테스트'));
+    return Center(
+      child: Column(
+        children: [
+          Row(children: [
+            Icon(
+              Icons.settings,
+              size: 14,
+            ),
+            Expanded(
+              child: Center(
+                child: Text(
+                  "라이브러리",
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 14,
+            ),
+          ]),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 1,
+                color: Colors.orange,
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ImageIcon(
+                    NetworkImage("https://i.ibb.co/hxNbZ8p/shazam.png"),
+                    size: 18,
+                  ),
+                  SizedBox(
+                    width: 12,
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        "회원님을 위한 재생 목록",
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 
