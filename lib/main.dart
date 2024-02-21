@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 void main() {
@@ -41,7 +42,6 @@ class _HomePageState extends State<HomePage> {
         });
 
         return Scaffold(
-          appBar: AppBar(),
           body: Stack(
             children: [
               TabBarView(
@@ -122,55 +122,151 @@ class FirstTab extends StatelessWidget {
     ];
 
     return Center(
-      child: Column(
-        children: [
-          Row(children: [
-            Icon(
-              Icons.settings,
-              size: 14,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 25,
             ),
-            Expanded(
-              child: Center(
-                child: Text(
-                  "라이브러리",
+            Row(children: [
+              Icon(
+                Icons.settings,
+                size: 25,
+              ),
+              Expanded(
+                child: Center(
+                  child: Text(
+                    "라이브러리",
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 25,
+                height: 30,
+              ),
+            ]),
+            Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    width: 0.5,
+                    color: Color.fromARGB(247, 194, 191, 191),
+                  ),
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 12.0,
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 4,
+                    ),
+                    ImageIcon(
+                      NetworkImage("https://i.ibb.co/hxNbZ8p/shazam.png"),
+                      size: 18,
+                    ),
+                    SizedBox(
+                      width: 12,
+                    ),
+                    Expanded(
+                      child: Text(
+                        "Shazam",
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
-            SizedBox(
-              width: 14,
-            ),
-          ]),
-          Container(
-            decoration: BoxDecoration(
-              border: Border.all(
-                width: 1,
-                color: Colors.orange,
+            Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    width: 0.5,
+                    color: Color.fromARGB(247, 194, 191, 191),
+                  ),
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 12.0,
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 4,
+                    ),
+                    Icon(
+                      Icons.person,
+                      size: 18,
+                    ),
+                    SizedBox(
+                      width: 12,
+                    ),
+                    Expanded(
+                      child: Text(
+                        "아티스트",
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 12.0,
+              ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ImageIcon(
-                    NetworkImage("https://i.ibb.co/hxNbZ8p/shazam.png"),
+                  SizedBox(
+                    width: 4,
+                  ),
+                  Icon(
+                    Icons.music_note,
                     size: 18,
                   ),
                   SizedBox(
                     width: 12,
                   ),
                   Expanded(
-                    child: Center(
-                      child: Text(
-                        "회원님을 위한 재생 목록",
+                    child: Text(
+                      "회원님을 위한 재생 목록",
+                      style: TextStyle(
+                        fontSize: 16,
                       ),
                     ),
                   )
                 ],
               ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 10.0,
+              ),
+              child: SizedBox(
+                width: double.infinity,
+                child: Text(
+                  "최근 Shazam",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
