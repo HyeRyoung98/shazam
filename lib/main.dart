@@ -122,6 +122,9 @@ class FirstTab extends StatefulWidget {
 class _FirstTabState extends State<FirstTab> {
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
+    final double itemWidth = size.width / 2;
     const songs = [
       {
         'imageUrl': 'https://i.ytimg.com/vi/jAO0KXRdz_4/hqdefault.jpg',
@@ -155,7 +158,7 @@ class _FirstTabState extends State<FirstTab> {
       },
     ];
 
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: double.infinity,
       //color: Colors.yellow,
@@ -163,12 +166,11 @@ class _FirstTabState extends State<FirstTab> {
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         child: Padding(
           padding: const EdgeInsets.only(top: 120, bottom: 20),
-          child: Container(
-            //color: Colors.pink,
-            child: CustomScrollView(
-              slivers: <Widget>[
-                SliverToBoxAdapter(
-                  child: Container(
+          child: CustomScrollView(
+            slivers: <Widget>[
+              SliverList(
+                delegate: SliverChildListDelegate([
+                  Container(
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
@@ -204,9 +206,7 @@ class _FirstTabState extends State<FirstTab> {
                       ),
                     ),
                   ),
-                ),
-                SliverToBoxAdapter(
-                  child: Container(
+                  Container(
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
@@ -242,9 +242,7 @@ class _FirstTabState extends State<FirstTab> {
                       ),
                     ),
                   ),
-                ),
-                SliverToBoxAdapter(
-                  child: Padding(
+                  Padding(
                     padding: const EdgeInsets.symmetric(
                       vertical: 12.0,
                     ),
@@ -270,9 +268,7 @@ class _FirstTabState extends State<FirstTab> {
                       ],
                     ),
                   ),
-                ),
-                SliverToBoxAdapter(
-                  child: Padding(
+                  Padding(
                     padding: const EdgeInsets.symmetric(
                       vertical: 10.0,
                     ),
@@ -287,10 +283,23 @@ class _FirstTabState extends State<FirstTab> {
                       ),
                     ),
                   ),
+                  //GridViewPage(songList: songs),
+                ]),
+              ),
+              SliverGrid(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) => gridItemView(songItem: songs[index]),
+                  childCount: songs.length,
                 ),
-                GridViewPage(songList: songs),
-              ],
-            ),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio:
+                      (itemWidth / itemHeight), //item 의 가로 1, 세로 2 의 비율
+                  mainAxisSpacing: 10, //수평 Padding
+                  crossAxisSpacing: 10, //수직 Padding),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -298,57 +307,9 @@ class _FirstTabState extends State<FirstTab> {
   }
 }
 
-class GridViewPage extends StatefulWidget {
-  const GridViewPage({
-    Key? key,
-    required this.songList,
-  }) : super(key: key);
-  final songList;
-
-  @override
-  State<GridViewPage> createState() => _GridViewPageState();
-}
-
-class _GridViewPageState extends State<GridViewPage> {
-  //final songsSize = songList.length;
-  @override
-  Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
-    final double itemWidth = size.width / 2;
-    return GridView.builder(
-      primary: false,
-      padding: const EdgeInsets.all(20),
-      // childAspectRatio: (itemWidth / itemHeight), //TODO
-      // crossAxisSpacing: 10,
-      // mainAxisSpacing: 10,
-      // crossAxisCount: 2,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2, //1 개의 행에 보여줄 item 개수
-        childAspectRatio: (itemWidth / itemHeight), //item 의 가로 1, 세로 2 의 비율
-        mainAxisSpacing: 10, //수평 Padding
-        crossAxisSpacing: 10, //수직 Padding
-      ),
-      itemCount: widget.songList.length,
-      itemBuilder: (BuildContext context, int index) {
-        //final song = widget.songList[index];
-        return Container(
-          child: gridItemView(
-              imageUrl: 'https://i.ytimg.com/vi/jAO0KXRdz_4/hqdefault.jpg'),
-        );
-      },
-    );
-    // children: <Widget>[
-    //   gridItemView(songList.imageUrl),
-    //   gridItemView(),
-    //   gridItemView(),
-    //   gridItemView(),
-  }
-}
-
 class gridItemView extends StatelessWidget {
-  const gridItemView({super.key, required this.imageUrl});
-  final String imageUrl;
+  const gridItemView({super.key, required this.songItem});
+  final Map songItem;
 
   @override
   Widget build(BuildContext context) {
@@ -362,7 +323,7 @@ class gridItemView extends StatelessWidget {
           Image.network(
             height: 150,
             width: double.infinity,
-            'https://i.ytimg.com/vi/jAO0KXRdz_4/hqdefault.jpg',
+            songItem["imageUrl"].toString(),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -371,7 +332,7 @@ class gridItemView extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: Text(
-                    "title1",
+                    songItem["title"].toString(),
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       fontSize: 20,
@@ -382,7 +343,7 @@ class gridItemView extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: Text(
-                    "title2",
+                    songItem["artist"].toString(),
                     textAlign: TextAlign.left,
                     style: TextStyle(fontSize: 14),
                   ),
