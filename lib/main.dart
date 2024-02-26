@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      initialIndex: 1,
+      initialIndex: 2,
       length: 3,
       child: Builder(builder: (context) {
         DefaultTabController.of(context)?.addListener(() {
@@ -89,12 +89,8 @@ class _HomePageState extends State<HomePage> {
 }
 
 class semiAppBar extends StatelessWidget {
-  //const semiAppBar({Key? key, dynamic required index?}) : super(key: key);
   const semiAppBar({super.key, required this.index});
   final int index;
-  /** TODO   const gridItemView({super.key, required this.songItem});
-  final Map songItem;
- */
 
   @override
   Widget build(BuildContext context) {
@@ -528,6 +524,168 @@ class ThirdTab extends StatelessWidget {
       ],
     };
 
-    return Center(child: Text('세번째 페이지'));
+    const keySet = ['korea', 'global', 'newyork'];
+
+    return SizedBox(
+      width: double.infinity,
+      height: double.infinity,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 120),
+        child: Container(
+          color: Colors.grey,
+          child: CustomScrollView(
+            slivers: [
+              SliverList(
+                delegate: SliverChildListDelegate([
+                  Container(
+                    color: Color.fromRGBO(74, 20, 140, 1.0),
+                    height: 150,
+                    width: double.infinity,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 40,
+                          width: 250,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: Colors.white,
+                          ),
+                          child: Center(
+                            child: Text(
+                              "국가 및 도시별 차트",
+                              style: TextStyle(
+                                color: Color.fromRGBO(74, 20, 140, 1.0),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Text(
+                          "전 세계",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                ]),
+              ),
+              SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  return vertiListItem(
+                      index: index,
+                      chartItems: chartData[keySet[index].toString()]);
+                },
+                childCount: 3,
+              ))
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class vertiListItem extends StatelessWidget {
+  const vertiListItem(
+      {super.key, required this.index, required this.chartItems});
+  final int index;
+  final chartItems;
+
+  @override
+  Widget build(BuildContext context) {
+    const listTitle = ["대한민국 차트", "글로벌 차트", "뉴욕 차트"];
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Container(
+        width: double.infinity,
+        height: 250,
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Text(
+                    listTitle[index].toString(),
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Expanded(child: SizedBox()),
+                  Text(
+                    "모두보기",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                height: 200,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: chartItems.length,
+                  itemBuilder: (BuildContext context, int idx) {
+                    return horiListItem(chartItem: chartItems[idx]);
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class horiListItem extends StatelessWidget {
+  const horiListItem({super.key, required this.chartItem});
+  final chartItem;
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 150,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 10, right: 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Image.network(
+              chartItem["imageUrl"],
+              height: 130,
+            ),
+            Container(
+              child: Text(
+                chartItem["name"],
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Text(
+              chartItem["artist"],
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 14,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
