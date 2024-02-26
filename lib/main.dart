@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      initialIndex: 0,
+      initialIndex: 1,
       length: 3,
       child: Builder(builder: (context) {
         DefaultTabController.of(context)?.addListener(() {
@@ -59,19 +59,22 @@ class _HomePageState extends State<HomePage> {
                       const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
                   child: Column(
                     children: [
-                      semiAppBar(),
-                      Container(
-                        alignment: Alignment.topCenter,
-                        child: TabPageSelector(
-                          color: DefaultTabController.of(context)?.index == 1
-                              ? Colors.blue[300]
-                              : Colors.grey[400],
-                          selectedColor:
-                              DefaultTabController.of(context)?.index == 1
-                                  ? Colors.white
-                                  : Colors.blue,
-                          indicatorSize: 8,
-                        ),
+                      semiAppBar(
+                          index: DefaultTabController.of(context)!.index),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TabPageSelector(
+                            color: DefaultTabController.of(context)?.index == 1
+                                ? Colors.blue[300]
+                                : Colors.grey[400],
+                            selectedColor:
+                                DefaultTabController.of(context)?.index == 1
+                                    ? Colors.white
+                                    : Colors.blue,
+                            indicatorSize: 8,
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -86,26 +89,66 @@ class _HomePageState extends State<HomePage> {
 }
 
 class semiAppBar extends StatelessWidget {
-  const semiAppBar({Key? key}) : super(key: key);
+  //const semiAppBar({Key? key, dynamic required index?}) : super(key: key);
+  const semiAppBar({super.key, required this.index});
+  final int index;
+  /** TODO   const gridItemView({super.key, required this.songItem});
+  final Map songItem;
+ */
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    final double itemWidth = size.width - 32; //padding 제외
     return Stack(
       children: [
         Expanded(
           child: Center(
             child: Text(
-              "라이브러리",
+              index == 0
+                  ? "라이브러리"
+                  : index == 1
+                      ? ""
+                      : "차트",
               style: TextStyle(fontSize: 20),
             ),
           ),
         ),
-        Row(children: [
+        if (index == 0)
           Icon(
             Icons.settings,
             size: 25,
           ),
-        ]),
+        if (index == 1)
+          Row(
+            children: [
+              Column(
+                children: [
+                  Icon(
+                    Icons.person,
+                    size: 25,
+                  ),
+                  Text(
+                    "라이브러리",
+                    style: TextStyle(fontSize: 10),
+                  ),
+                ],
+              ),
+              Expanded(child: SizedBox()),
+              Column(
+                children: [
+                  Icon(
+                    Icons.show_chart,
+                    size: 25,
+                  ),
+                  Text(
+                    "차트",
+                    style: TextStyle(fontSize: 10),
+                  ),
+                ],
+              ),
+            ],
+          )
       ],
     );
   }
@@ -363,7 +406,65 @@ class SecondTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('두번째 페이지'));
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [
+        Color.fromARGB(255, 97, 178, 243).withOpacity(1.0),
+        Color.fromARGB(255, 15, 73, 163)
+      ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.headphones,
+                  color: Colors.white,
+                  size: 25,
+                ),
+                SizedBox(width: 15),
+                Text(
+                  "Shazam하려면 탭하세요",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 80),
+            CircleAvatar(
+              radius: 90,
+              backgroundColor: Color.fromRGBO(100, 181, 246, 1.0),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Image.network(
+                  "https://i.ibb.co/hxNbZ8p/shazam.png",
+                  color: Colors.white,
+                  width: 100,
+                ),
+              ),
+            ),
+            SizedBox(height: 80),
+            CircleAvatar(
+              radius: 30,
+              backgroundColor: Color.fromRGBO(100, 181, 246, 1.0),
+              child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Icon(
+                    Icons.search,
+                    color: Colors.white,
+                  )),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
