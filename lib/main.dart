@@ -59,8 +59,9 @@ class _HomePageState extends State<HomePage> {
                       const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
                   child: Column(
                     children: [
-                      semiAppBar(
-                          index: DefaultTabController.of(context)!.index),
+                      //semiAppBar(
+                      //    index: DefaultTabController.of(context)!.index),
+                      SizedBox(height: 40),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -98,7 +99,9 @@ class semiAppBar extends StatelessWidget {
     final double itemWidth = size.width - 32; //padding 제외
     return Stack(
       children: [
-        Expanded(
+        SizedBox(
+          height: 100,
+          width: double.infinity,
           child: Center(
             child: Text(
               index == 0
@@ -111,39 +114,54 @@ class semiAppBar extends StatelessWidget {
           ),
         ),
         if (index == 0)
-          Icon(
-            Icons.settings,
-            size: 25,
+          SizedBox(
+            height: 100,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.settings,
+                  size: 25,
+                ),
+              ],
+            ),
           ),
         if (index == 1)
-          Row(
-            children: [
-              Column(
-                children: [
-                  Icon(
-                    Icons.person,
-                    size: 25,
-                  ),
-                  Text(
-                    "라이브러리",
-                    style: TextStyle(fontSize: 10),
-                  ),
-                ],
-              ),
-              Expanded(child: SizedBox()),
-              Column(
-                children: [
-                  Icon(
-                    Icons.show_chart,
-                    size: 25,
-                  ),
-                  Text(
-                    "차트",
-                    style: TextStyle(fontSize: 10),
-                  ),
-                ],
-              ),
-            ],
+          SizedBox(
+            height: 100,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.person,
+                      size: 25,
+                    ),
+                    Text(
+                      "라이브러리",
+                      style: TextStyle(fontSize: 10),
+                    ),
+                  ],
+                ),
+                Expanded(child: SizedBox()),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.show_chart,
+                      size: 25,
+                    ),
+                    Text(
+                      "차트",
+                      style: TextStyle(fontSize: 10),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           )
       ],
     );
@@ -199,147 +217,156 @@ class _FirstTabState extends State<FirstTab> {
 
     return SizedBox(
       width: double.infinity,
-      height: double.infinity,
-      //color: Colors.yellow,
+      height: size.height,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        child: Padding(
-          padding: const EdgeInsets.only(top: 120, bottom: 20),
-          child: CustomScrollView(
-            slivers: <Widget>[
-              SliverList(
-                delegate: SliverChildListDelegate([
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                          width: 0.5,
-                          color: Color.fromARGB(247, 194, 191, 191),
-                        ),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 12.0,
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: 4,
-                          ),
-                          ImageIcon(
-                            NetworkImage("https://i.ibb.co/hxNbZ8p/shazam.png"),
-                            size: 18,
-                          ),
-                          SizedBox(
-                            width: 12,
-                          ),
-                          Text(
-                            "Shazam",
-                            style: TextStyle(
-                              fontSize: 16,
+        child: Column(
+          children: [
+            semiAppBar(index: 0),
+            SizedBox(
+              width: double.infinity,
+              height: size.height - 100,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 5),
+                child: CustomScrollView(
+                  slivers: <Widget>[
+                    SliverList(
+                      delegate: SliverChildListDelegate([
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                width: 0.5,
+                                color: Color.fromARGB(247, 194, 191, 191),
+                              ),
                             ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                          width: 0.5,
-                          color: Color.fromARGB(247, 194, 191, 191),
-                        ),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 12.0,
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: 4,
                           ),
-                          Icon(
-                            Icons.person,
-                            size: 18,
-                          ),
-                          SizedBox(
-                            width: 12,
-                          ),
-                          Text(
-                            "아티스트",
-                            style: TextStyle(
-                              fontSize: 16,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 12.0,
                             ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 12.0,
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 4,
-                        ),
-                        Icon(
-                          Icons.music_note,
-                          size: 18,
-                        ),
-                        SizedBox(
-                          width: 12,
-                        ),
-                        Text(
-                          "회원님을 위한 재생 목록",
-                          style: TextStyle(
-                            fontSize: 16,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: 4,
+                                ),
+                                ImageIcon(
+                                  NetworkImage(
+                                      "https://i.ibb.co/hxNbZ8p/shazam.png"),
+                                  size: 18,
+                                ),
+                                SizedBox(
+                                  width: 12,
+                                ),
+                                Text(
+                                  "Shazam",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 10.0,
-                    ),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: Text(
-                        "최근 Shazam",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
                         ),
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                width: 0.5,
+                                color: Color.fromARGB(247, 194, 191, 191),
+                              ),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 12.0,
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: 4,
+                                ),
+                                Icon(
+                                  Icons.person,
+                                  size: 18,
+                                ),
+                                SizedBox(
+                                  width: 12,
+                                ),
+                                Text(
+                                  "아티스트",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 12.0,
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 4,
+                              ),
+                              Icon(
+                                Icons.music_note,
+                                size: 18,
+                              ),
+                              SizedBox(
+                                width: 12,
+                              ),
+                              Text(
+                                "회원님을 위한 재생 목록",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 10.0,
+                          ),
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: Text(
+                              "최근 Shazam",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ]),
+                    ),
+                    SliverGrid(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) =>
+                            gridItemView(songItem: songs[index]),
+                        childCount: songs.length,
+                      ),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio:
+                            (itemWidth / itemHeight), //item 의 가로 1, 세로 2 의 비율
+                        mainAxisSpacing: 10, //수평 Padding
+                        crossAxisSpacing: 10, //수직 Padding),
                       ),
                     ),
-                  ),
-                  //GridViewPage(songList: songs),
-                ]),
-              ),
-              SliverGrid(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) => gridItemView(songItem: songs[index]),
-                  childCount: songs.length,
-                ),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio:
-                      (itemWidth / itemHeight), //item 의 가로 1, 세로 2 의 비율
-                  mainAxisSpacing: 10, //수평 Padding
-                  crossAxisSpacing: 10, //수직 Padding),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -410,55 +437,63 @@ class SecondTab extends StatelessWidget {
         Color.fromARGB(255, 97, 178, 243).withOpacity(1.0),
         Color.fromARGB(255, 15, 73, 163)
       ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: semiAppBar(index: 1),
+          ),
+          Center(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.headphones,
-                  color: Colors.white,
-                  size: 25,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.headphones,
+                      color: Colors.white,
+                      size: 25,
+                    ),
+                    SizedBox(width: 15),
+                    Text(
+                      "Shazam하려면 탭하세요",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(width: 15),
-                Text(
-                  "Shazam하려면 탭하세요",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                SizedBox(height: 80),
+                CircleAvatar(
+                  radius: 90,
+                  backgroundColor: Color.fromRGBO(100, 181, 246, 1.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Image.network(
+                      "https://i.ibb.co/hxNbZ8p/shazam.png",
+                      color: Colors.white,
+                      width: 100,
+                    ),
                   ),
+                ),
+                SizedBox(height: 80),
+                CircleAvatar(
+                  radius: 30,
+                  backgroundColor: Color.fromRGBO(100, 181, 246, 1.0),
+                  child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Icon(
+                        Icons.search,
+                        color: Colors.white,
+                      )),
                 ),
               ],
             ),
-            SizedBox(height: 80),
-            CircleAvatar(
-              radius: 90,
-              backgroundColor: Color.fromRGBO(100, 181, 246, 1.0),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Image.network(
-                  "https://i.ibb.co/hxNbZ8p/shazam.png",
-                  color: Colors.white,
-                  width: 100,
-                ),
-              ),
-            ),
-            SizedBox(height: 80),
-            CircleAvatar(
-              radius: 30,
-              backgroundColor: Color.fromRGBO(100, 181, 246, 1.0),
-              child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Icon(
-                    Icons.search,
-                    color: Colors.white,
-                  )),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -470,6 +505,9 @@ class ThirdTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    //final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
+    //final double itemWidth = size.width / 2;
     const chartData = {
       'korea': [
         {
@@ -523,72 +561,75 @@ class ThirdTab extends StatelessWidget {
         },
       ],
     };
-
+//commit test
     const keySet = ['korea', 'global', 'newyork'];
 
     return SizedBox(
       width: double.infinity,
       height: double.infinity,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 120),
-        child: Container(
-          color: Colors.grey,
-          child: CustomScrollView(
-            slivers: [
-              SliverList(
-                delegate: SliverChildListDelegate([
-                  Container(
-                    color: Color.fromRGBO(74, 20, 140, 1.0),
-                    height: 150,
-                    width: double.infinity,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 40,
-                          width: 250,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.0),
-                            color: Colors.white,
-                          ),
-                          child: Center(
-                            child: Text(
-                              "국가 및 도시별 차트",
-                              style: TextStyle(
-                                color: Color.fromRGBO(74, 20, 140, 1.0),
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
+      child: Column(
+        children: [
+          semiAppBar(index: 2),
+          Container(
+            height: size.height - 100,
+            color: Colors.grey,
+            child: CustomScrollView(
+              slivers: [
+                SliverList(
+                  delegate: SliverChildListDelegate([
+                    Container(
+                      color: Color.fromRGBO(74, 20, 140, 1.0),
+                      height: 150,
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 40,
+                            width: 250,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: Colors.white,
+                            ),
+                            child: Center(
+                              child: Text(
+                                "국가 및 도시별 차트",
+                                style: TextStyle(
+                                  color: Color.fromRGBO(74, 20, 140, 1.0),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        SizedBox(height: 20),
-                        Text(
-                          "전 세계",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                          SizedBox(height: 20),
+                          Text(
+                            "전 세계",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 10),
-                ]),
-              ),
-              SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  return vertiListItem(
-                      index: index,
-                      chartItems: chartData[keySet[index].toString()]);
-                },
-                childCount: 3,
-              ))
-            ],
+                    SizedBox(height: 10),
+                  ]),
+                ),
+                SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    return vertiListItem(
+                        index: index,
+                        chartItems: chartData[keySet[index].toString()]);
+                  },
+                  childCount: 3,
+                ))
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -632,7 +673,7 @@ class vertiListItem extends StatelessWidget {
                   ),
                 ],
               ),
-              Container(
+              SizedBox(
                 height: 200,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
@@ -656,7 +697,7 @@ class horiListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 150,
+      width: 130,
       child: Padding(
         padding: const EdgeInsets.only(top: 10, right: 10),
         child: Column(
@@ -664,9 +705,10 @@ class horiListItem extends StatelessWidget {
           children: [
             Image.network(
               chartItem["imageUrl"],
-              height: 130,
+              width: double.infinity,
             ),
-            Container(
+            SizedBox(
+              width: double.infinity,
               child: Text(
                 chartItem["name"],
                 textAlign: TextAlign.left,
@@ -676,11 +718,14 @@ class horiListItem extends StatelessWidget {
                 ),
               ),
             ),
-            Text(
-              chartItem["artist"],
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                fontSize: 14,
+            SizedBox(
+              width: double.infinity,
+              child: Text(
+                chartItem["artist"],
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontSize: 14,
+                ),
               ),
             ),
           ],
